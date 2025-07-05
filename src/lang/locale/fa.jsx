@@ -1,0 +1,37 @@
+const fa={
+  // sidebar
+  "Users list": "فهرست کاربران",
+  "Posts": "پست‌ها",
+  "Gallery": "گالری",
+  "ToDo": "کارها",
+  // users list
+  "Are you sure?": "آیا مطمئن هستید؟",
+  "You won't be able to revert this!": "شما قادر به بازگرداندن این عملیات نخواهید بود!",
+  "Yes, delete it!": "بله، حذف کن!",
+  "Cancel": "لغو",
+  "Deleted!": "حذف شد!",
+  "Your file has been deleted.": "فایل شما حذف شد.",
+    "Error!":"خطا!",
+  "something wrong!!":"خطایی رخ داده!!",
+  "ok":"تایید",
+  "Name": "نام",
+  "Username": "نام کاربری",
+  "Email": "ایمیل",
+  "Actions": "اقدامات",
+  "please wait": "لطفاً صبر کنید",
+    // add/edit user
+  'Edite User':'ویرایش کاربر',
+  'Add User':'افزودن کاربر',
+  "firstname":"نام",
+  "lastname":"نام خانوادکی",
+  "email":"ایمیل",
+  "username":"نام کاربری",
+  "password":"پسورد",
+  "EDIT":"ویرایش",
+  "SUBMIT":"تایید",
+  "Added!":"افزوده شد!",
+  "Edited!":"ویرایش شد!",
+  "Your user has been added.":"کاربر افزوده شده.",
+  "Your user has been edited.":"کاربر ویرایش شده.",
+}
+export default fa;

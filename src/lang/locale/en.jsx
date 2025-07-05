@@ -1,0 +1,37 @@
+const en={
+  //sidebar
+  "Users list":"Users List",
+  "Posts":"Posts",
+  "Gallery":"Gallery",
+  "ToDo":"ToDo",
+  //users list
+  "Are you sure?":"Are you sure?",
+  "You won't be able to revert this!":"You won't be able to revert this!",
+  "Yes, delete it!":"Yes, delete it!",
+  "Cancel":"Cancel",
+  "Deleted!":"Deleted!",
+  "Your file has been deleted.":"Your file has been deleted.",
+  "Error!":"Error!",
+  "something wrong!!":"something wrong!!",
+  "ok":"ok",
+  "Name":"Name",
+  "Username":"Username",
+  "Email":"Email",
+  "Actions":"Actions",
+  "please wait":"please wait",
+  // add/edit user
+  'Edite User':'Edite User',
+  'Add User':'Add User',
+  "firstname":"firstname",
+  "lastname":"lastname",
+  "email":"email",
+  "username":"username",
+  "password":"password",
+  "EDIT":"EDIT",
+  "SUBMIT":"SUBMIT",
+  "Added!":"Added!",
+  "Edited!":"Edited!",
+  "Your user has been added.":"Your user has been added.",
+  "Your user has been edited.":"Your user has been edited.",
+}
+export default en;
