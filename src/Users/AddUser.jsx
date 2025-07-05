@@ -30,11 +30,12 @@ const AddUser = () => {
   const handleForm = (e) => {
     e.preventDefault();
     fetch("https://jsonplaceholder.typicode.com/users/", {
-      method: "POST",
+      method: !id?"POST":"PUT",
       headers: {
         "content-type": "appliction/json",
       },
       body: data,
+
     }).then((res) => {
       if (res.status == 201) {
         Swal.fire({
