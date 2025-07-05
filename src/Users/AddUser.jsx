@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 const AddUser = () => {
   const navigate = useNavigate();
@@ -13,46 +13,60 @@ const AddUser = () => {
     username: "",
     password: "",
   });
-  if (id) {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const firstname = data.name.split(" ")[0];
-        const lastname = data.name.split(" ")[1];
-        const email = data.email;
-        const username = data.username;
-        setData({...data,firstname,lastname,email,username})
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  useEffect(() => {
+    if (id) {
+      fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const firstname = data.name.split(" ")[0];
+          const lastname = data.name.split(" ")[1];
+          const email = data.email;
+          const username = data.username;
+          setData({ ...data, firstname, lastname, email, username });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [id]);
   const handleForm = (e) => {
     e.preventDefault();
-    fetch("https://jsonplaceholder.typicode.com/users/", {
-      method: !id?"POST":"PUT",
+    fetch(`https://jsonplaceholder.typicode.com/users/${id || ""}`, {
+      method: id ? "PUT" : "POST",
       headers: {
-        "content-type": "appliction/json",
+        "Content-Type": "application/json",
       },
-      body: data,
-
-    }).then((res) => {
-      if (res.status == 201) {
-        Swal.fire({
-          title: !id ? t("Added!"):t("Edited!"),
-          text: !id ?t("Your user has been added."):t("Your user has been edited."),
-          icon: "success",
-          confirmButtonColor: "green",
-          confirmButtonText: t("ok"),
-        })
-          .then(() => {
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if ((res.status === 201 && !id) || (res.status === 200 && id)) {
+          Swal.fire({
+            title: !id ? t("Added!") : t("Edited!"),
+            text: !id
+              ? t("Your user has been added.")
+              : t("Your user has been edited."),
+            icon: "success",
+            confirmButtonColor: "green",
+            confirmButtonText: t("ok"),
+          }).then(() => {
             navigate("/users");
-          })
-          .catch((err) => {
-            console.log(err);
           });
-      }
-    });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: t("Oops..."),
+            text: t("Something went wrong!"),
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: t("Oops..."),
+          text: t("Request failed!"),
+        });
+      });
   };
   return (
     <>
