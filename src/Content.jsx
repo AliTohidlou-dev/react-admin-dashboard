@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Posts from "./Posts/Posts";
 import SidebarIcon from "./SidebarIcon";
-import UsersList from "./Users/UsersList";
+import UserList from "./Users/UsersList";
 import Gallery from "./Gallery/Gallery";
 import ToDo from "./ToDo/ToDo";
 import AddUser from "./Users/AddUser";
@@ -15,14 +15,14 @@ const Content = () => {
       <div className="mainContent">
         <Lang/>
         <Routes>
-          <Route path="/users" element={<UsersList />} />
+          <Route path="/users" element={<UserList />} />
           <Route path="/add-user/" element={<AddUser />}>
             <Route path=":id" element={<Message />} />
           </Route>
           <Route path="/posts" element={<Posts />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/toDo" element={<ToDo />} />
-          <Route path="*" element={<UsersList />} />
+          <Route path="*" element={<UserList />} />
         </Routes>
       </div>
     </>

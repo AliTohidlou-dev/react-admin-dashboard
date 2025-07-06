@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import WithAlert from "../HOC/withAlert";
 
-const UsersList = () => {
+const UsersList = (porps) => {
+  const { Confirm, Alert, Accept} = porps;
   const { t } = useTranslation();
   const [usersList, setUsersList] = useState([]);
   const [mainUsersList, setMainUsersList] = useState([]);
@@ -16,17 +17,12 @@ const UsersList = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: t("Are you sure?"),
-      text: t("You won't be able to revert this!"),
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#aaa",
-      confirmButtonText: t("Yes, delete it!"),
-      cancelButtonText: t("Cancel"),
-    }).then((result) => {
+  const handleDelete = async (id) => {
+    await Confirm(
+      "Are you sure?",
+      "You won't be able to revert this!",
+      "warning"
+    ).then((result) => {
       if (result.isConfirmed) {
         fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
           method: "DELETE",
@@ -35,21 +31,9 @@ const UsersList = () => {
             const newUserList = usersList.filter((user) => user.id !== id);
             console.log(newUserList);
             setUsersList(newUserList);
-            Swal.fire({
-              title: t("Deleted!"),
-              text: t("Your file has been deleted."),
-              icon: "success",
-              confirmButtonColor: "green",
-              confirmButtonText: t("ok"),
-            });
+            Alert("Deleted!","Your file has been deleted.","success")
           } else {
-            Swal.fire({
-              title: t("Error!"),
-              text: t("something wrong!!"),
-              icon: "error",
-              confirmButtonColor: "#aaa",
-              confirmButtonText: t("ok"),
-            });
+            Alert("Error!","something wrong!!","error")
           }
         });
       }
@@ -121,4 +105,5 @@ const UsersList = () => {
     </>
   );
 };
-export default UsersList;
+const UserList=WithAlert(UsersList)
+export default UserList;
