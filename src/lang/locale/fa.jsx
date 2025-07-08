@@ -33,5 +33,11 @@ const fa={
   "Edited!":"ویرایش شد!",
   "Your user has been added.":"کاربر افزوده شده.",
   "Your user has been edited.":"کاربر ویرایش شده.",
+  "search here...":"جستجو",
+  "UserId":"شتاسه کاربر",
+  "Title":"عنوان",
+  "Caption":"متن",
+  "Edite Post":"ویرایش پست",
+  "Add Post":"افزودن پست",
 }
 export default fa;

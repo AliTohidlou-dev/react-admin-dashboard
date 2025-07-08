@@ -1,4 +1,4 @@
-import Content from "./content"
+import Content from "./Content"
 import Sidebar from "./sidebar"
 import SidebarContext from "./contexts/SidebarContext";
 import { useEffect, useState } from "react";

@@ -33,5 +33,11 @@ const en={
   "Edited!":"Edited!",
   "Your user has been added.":"Your user has been added.",
   "Your user has been edited.":"Your user has been edited.",
+  "search here...":"search here...",
+  "UserId":"UserId",
+  "Title":"Title",
+  "Caption":"Caption",
+  "Edite Post":"Edite Post",
+  "Add Post":"Add Post",
 }
 export default en;

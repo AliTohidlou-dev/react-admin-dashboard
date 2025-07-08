@@ -185,6 +185,7 @@ p {
   text-transform: uppercase;
 }
 .addUserForm input,
+.addUserForm textarea,
 .addUserForm button {
   padding: 12px;
   border-radius: var(--main-radius);
@@ -193,7 +194,9 @@ p {
   font-size: 1rem;
   transition: border 0.2s;
 }
-
+.addUserForm textarea{
+  min-height: 350px;
+}
 .addUserForm input:focus,
 .addUserForm button:focus {
   border-color: #000;

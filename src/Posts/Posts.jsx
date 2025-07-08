@@ -1,10 +1,110 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-const Posts = () => {
-  const {t}=useTranslation();  
+import { Link } from "react-router-dom";
+import WithAlert from "../HOC/withAlert";
+const Posts = (props) => {
+  const { Confirm, Alert, Accept} = props;
+  const {t}=useTranslation();
+  const [postsList,setPostsList]=useState([]);
+  const [mainPostsList,setMainPostsList]=useState([])
+  useEffect(()=>{
+        fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setPostsList(data);
+        setMainPostsList(data);
+      })
+      .catch((err) => console.log(err));
+
+  },[]);
+    const handleDelete = async (id) => {
+    await Confirm(
+      "Are you sure?",
+      "You won't be able to revert this!",
+      "warning"
+    ).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+          method: "DELETE",
+        }).then((res) => {
+          if (res.status == 200) {
+            const newPostsList = postsList.filter((user) => user.id !== id);
+            console.log(newPostsList);
+            setPostsList(newPostsList);
+            Alert("Deleted!","Your file has been deleted.","success")
+          } else {
+            Alert("Error!","something wrong!!","error")
+          }
+        });
+      }
+    });
+  };
+    const handleSearch = (e) => {
+    setPostsList(
+      mainPostsList.filter((post) => post.title.includes(e.target.value))
+    );
+  };
   return (
     <>
       <h2>{t("Posts")}</h2>
+            <div className="userListHeader">
+        <form>
+          <input
+            type="text"
+            name="usersListSearch"
+            id="userListSearch"
+            placeholder={t("search here...")}
+            onChange={handleSearch}
+          />
+        </form>
+        <Link className="addUser" to={"/add-post"}>
+          <p>+</p>
+        </Link>
+      </div>
+      <div className="tableDiv">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{t("UserId")}</th>
+              <th>{t("Title")}</th>
+              <th>{t("Caption")}</th>
+              <th>{t("Actions")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {postsList.map((post) => (
+              <tr key={post.id}>
+                <td>{post.id}</td>
+                <td>{post.userId}</td>
+                <td>{post.title}</td>
+                <td>{post.body}</td>
+                <td>
+                  <div className="actionsBtns">
+                    <a onClick={() => handleDelete(post.id)}>
+                      <i className="fas fa-trash"></i>
+                    </a>
+                    <Link to={`/add-post/${post.id}`}>
+                      <i className="fas fa-edit"></i>
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {postsList.length == 0 ? (
+        <div className="loadingDiv">
+          <div className="loadingIcon"></div>
+          <p>{t("please wait")}</p>
+        </div>
+      ) : (
+        ""
+      )}
+
     </>
   );
 };
-export default Posts;
+const Post=WithAlert(Posts)
+export default Post;
