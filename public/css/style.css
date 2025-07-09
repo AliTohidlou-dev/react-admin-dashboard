@@ -161,6 +161,14 @@ p {
   background-color: #f0f0f0;
   font-weight: 600;
 }
+.userId{
+  cursor: pointer;
+}
+.userId:hover{
+  color: white;
+  box-shadow: inset 100px 0 100px #727272;
+  transition: all 1s;
+}
 .actionsBtns {
   display: flex;
   justify-content: space-around;
@@ -170,9 +178,14 @@ p {
 }
 .actionsBtns a:nth-child(1) {
   color: #b40900;
+  cursor: pointer;
 }
 .actionsBtns a:nth-child(2) {
   color: #e49a04;
+}
+.actionsBtns a:nth-child(3) {
+  color: #2cde2ca0;
+  cursor: pointer;
 }
 /* Add User Form */
 .addUserForm {

@@ -3,21 +3,21 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import WithAlert from "../HOC/withAlert";
 const Posts = (props) => {
-  const { Confirm, Alert, Accept} = props;
-  const {t}=useTranslation();
-  const [postsList,setPostsList]=useState([]);
-  const [mainPostsList,setMainPostsList]=useState([])
-  useEffect(()=>{
-        fetch("https://jsonplaceholder.typicode.com/posts")
+  const { Confirm, Alert, Accept } = props;
+  const { t } = useTranslation();
+  const [postsList, setPostsList] = useState([]);
+  const [mainPostsList, setMainPostsList] = useState([]);
+  const [searchInput,setSearchInput]=useState('');
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
       .then((res) => res.json())
       .then((data) => {
         setPostsList(data);
         setMainPostsList(data);
       })
       .catch((err) => console.log(err));
-
-  },[]);
-    const handleDelete = async (id) => {
+  }, []);
+  const handleDelete = async (id) => {
     await Confirm(
       "Are you sure?",
       "You won't be able to revert this!",
@@ -28,33 +28,39 @@ const Posts = (props) => {
           method: "DELETE",
         }).then((res) => {
           if (res.status == 200) {
-            const newPostsList = postsList.filter((user) => user.id !== id);
+            const newPostsList = postsList.filter((post) => post.id !== id);
             console.log(newPostsList);
             setPostsList(newPostsList);
-            Alert("Deleted!","Your file has been deleted.","success")
+            Alert("Deleted!", "Your file has been deleted.", "success");
           } else {
-            Alert("Error!","something wrong!!","error")
+            Alert("Error!", "something wrong!!", "error");
           }
         });
       }
     });
   };
-    const handleSearch = (e) => {
-    setPostsList(
-      mainPostsList.filter((post) => post.title.includes(e.target.value))
-    );
+  const handleSearch = (value) => {
+    if(value){
+    setPostsList(mainPostsList.filter((post) => post.userId == value));
+    setSearchInput(value)
+  }else{
+    setPostsList([...mainPostsList])
+    setSearchInput("")
+
+  }
   };
   return (
     <>
       <h2>{t("Posts")}</h2>
-            <div className="userListHeader">
+      <div className="userListHeader">
         <form>
           <input
             type="text"
             name="usersListSearch"
             id="userListSearch"
             placeholder={t("search here...")}
-            onChange={handleSearch}
+            onChange={(e) => handleSearch(e.target.value)}
+            value={searchInput}
           />
         </form>
         <Link className="addUser" to={"/add-post"}>
@@ -76,7 +82,12 @@ const Posts = (props) => {
             {postsList.map((post) => (
               <tr key={post.id}>
                 <td>{post.id}</td>
-                <td>{post.userId}</td>
+                <td
+                  className="userId"
+                  onClick={() => handleSearch(post.userId)}
+                >
+                  {post.userId}
+                </td>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td>
@@ -87,6 +98,9 @@ const Posts = (props) => {
                     <Link to={`/add-post/${post.id}`}>
                       <i className="fas fa-edit"></i>
                     </Link>
+                    <a>
+                      <i className="fas fa-message"></i>
+                    </a>
                   </div>
                 </td>
               </tr>
@@ -102,9 +116,8 @@ const Posts = (props) => {
       ) : (
         ""
       )}
-
     </>
   );
 };
-const Post=WithAlert(Posts)
+const Post = WithAlert(Posts);
 export default Post;
