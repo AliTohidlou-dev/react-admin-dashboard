@@ -53,7 +53,7 @@ const UsersList = (porps) => {
             type="text"
             name="usersListSearch"
             id="userListSearch"
-            placeholder="search here..."
+            placeholder={t("search here...")}
             onChange={handleSearch}
           />
         </form>

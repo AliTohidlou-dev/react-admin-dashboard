@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import WithAlert from "../HOC/withAlert";
+import ModalPortal from "./ModalPortal";
 const Posts = (props) => {
   const { Confirm, Alert, Accept } = props;
   const { t } = useTranslation();
   const [postsList, setPostsList] = useState([]);
   const [mainPostsList, setMainPostsList] = useState([]);
   const [searchInput,setSearchInput]=useState('');
+  const [showComment,setShowComment]=useState({state:false,id:0});
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((res) => res.json())
@@ -49,8 +51,14 @@ const Posts = (props) => {
 
   }
   };
+  const handleShowComment=(id)=>{
+    setShowComment({
+      state:!showComment.state,
+      id
+    })
+  }
   return (
-    <>
+    <>{showComment.state&&<ModalPortal showComment={showComment} setShowComment={setShowComment}/>}
       <h2>{t("Posts")}</h2>
       <div className="userListHeader">
         <form>
@@ -98,7 +106,7 @@ const Posts = (props) => {
                     <Link to={`/add-post/${post.id}`}>
                       <i className="fas fa-edit"></i>
                     </Link>
-                    <a>
+                    <a onClick={()=>handleShowComment(post.userId)}>
                       <i className="fas fa-message"></i>
                     </a>
                   </div>

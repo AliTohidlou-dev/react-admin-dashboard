@@ -48,13 +48,12 @@ p {
   text-decoration: none;
   color: #aaa;
   text-align: center;
-  
 }
-.active p{
+.active p {
   color: white;
 }
-.active p::after{
-  content:"";
+.active p::after {
+  content: "";
   display: block;
   margin-inline-start: 35%;
   width: 30%;
@@ -161,10 +160,10 @@ p {
   background-color: #f0f0f0;
   font-weight: 600;
 }
-.userId{
+.userId {
   cursor: pointer;
 }
-.userId:hover{
+.userId:hover {
   color: white;
   box-shadow: inset 100px 0 100px #727272;
   transition: all 1s;
@@ -172,6 +171,7 @@ p {
 .actionsBtns {
   display: flex;
   justify-content: space-around;
+  min-width: 80px;
 }
 .actionsBtns a {
   text-decoration: none;
@@ -184,8 +184,10 @@ p {
   color: #e49a04;
 }
 .actionsBtns a:nth-child(3) {
-  color: #2cde2ca0;
+  color: #000000a0;
   cursor: pointer;
+  padding-top: 2px;
+  scale: 1.2;
 }
 /* Add User Form */
 .addUserForm {
@@ -207,7 +209,7 @@ p {
   font-size: 1rem;
   transition: border 0.2s;
 }
-.addUserForm textarea{
+.addUserForm textarea {
   min-height: 350px;
 }
 .addUserForm input:focus,
@@ -227,7 +229,7 @@ p {
   margin: 20px auto 0;
 }
 .loadingDiv {
-  width: 100dvw;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -268,3 +270,44 @@ p {
   font-size: 1rem;
   transition: border 0.2s;
 }
+/* portal */
+.modalBox {
+  position: fixed;
+  top: 30%;
+  inset-inline: 33%;
+  background-color: #0e0d0d77;
+  backdrop-filter: blur(5px);
+  border-radius: var(--main-radius);
+  box-shadow: 0 0 100px 15px black;
+  width: 500px;
+  height: 400px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.comments{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow-y: scroll;
+  height: fit-content;
+}
+.comment {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.closeModalBtn{
+  position: sticky;
+  height: 15px;
+  width: 15px;
+  cursor: pointer;
+  color: white;
+}
+
